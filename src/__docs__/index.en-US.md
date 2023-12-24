@@ -31,7 +31,7 @@ features:
     details: Suitable for Vue 3 and Vue2
   - icon: 🛠
     title: Flexible use
-    details: Support component, directive, functional call, there is always one that you like
+    details: Support component, functional call, there is always one that you like
   - icon: 🦾️
     title: Strong type
     details: Written in TypeScript, with complete TS documentation

@@ -18,10 +18,3 @@ desc="Pass the handle attribute, use the handle">
 title="Using Function"
 desc="Pass function option implementation">
 </demo>
-
-
-## Directive Usage
-<demo src="./directive.vue"
-title="Use directive mode"
-desc="Pass directive parameter implementation">
-</demo>

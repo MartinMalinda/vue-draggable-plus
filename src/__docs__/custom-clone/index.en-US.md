@@ -29,10 +29,3 @@ desc="Pass through the pull.clone attribute of the group to realize clone">
 title="Cloning using function"
 desc="Use function to pass options to achieve cloning">
 </demo>
-
-## Directive Usage
-
-<demo src="./directive.vue"
-title="Clone using directive"
-desc="Cloning with directives passing options">
-</demo>

@@ -114,27 +114,6 @@ const draggable = useDraggable<UseDraggableReturn>(el, list, {
 </script>
 ```
 
-### 指令方式
-
-```vue
-<template>
-    <div
-      v-draggable="[
-        list,
-        {
-          animation: 150,
-        }
-      ]"
-    >
-      <div
-        v-for="item in list"
-        :key="item.id"
-      >
-        {{ item.name }}
-      </div>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import { vDraggable } from 'vue-draggable-plus'

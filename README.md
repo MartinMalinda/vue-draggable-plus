@@ -124,61 +124,6 @@ const draggable = useDraggable({
 </script>
 ```
 
-### Directive Usage
-
-```vue
-<template>
-  <div
-    v-draggable="[
-        list,
-        {
-          animation: 150,
-        }
-      ]"
-  >
-    <div
-      v-for="item in list"
-      :key="item.id"
-    >
-      {{ item.name }}
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { vDraggable } from 'vue-draggable-plus'
-const list = ref([
-  {
-    name: 'Joao',
-    id: 1
-  },
-  {
-    name: 'Jean',
-    id: 2
-  },
-  {
-    name: 'Johanna',
-    id: 3
-  },
-  {
-    name: 'Juan',
-    id: 4
-  }
-])
-
-function onStart() {
-  console.log('start')
-}
-
-function onUpdate() {
-  console.log('update')
-}
-</script>
-```
-
-
-
 ## Explanation
 
 All event functions starting with `on` can be passed to components using `v-on`. For example:

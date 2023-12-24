@@ -19,10 +19,3 @@ desc="Drag and drop table rows to sort">
 <demo src="./function.vue"
 desc="Drag and drop table rows to sort">
 </demo>
-
-## Directive Usage
-
-<demo src="./directive.vue"
-title="Binding directives for forms"
-desc="Drag and drop table rows to sort">
-</demo>

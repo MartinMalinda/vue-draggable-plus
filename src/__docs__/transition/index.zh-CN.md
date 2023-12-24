@@ -19,10 +19,3 @@ desc="超出时可以滚动拖拽">
 title="使用 函数方式"
 desc="">
 </demo>
-
-## 指令使用
-
-<demo src="./directive.vue"
-title="使用指令完成过渡拖拽"
-desc="">
-</demo>

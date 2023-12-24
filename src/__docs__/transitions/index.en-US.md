@@ -19,9 +19,3 @@ desc="After dragging, click Restore to view the effect">
 title="Combining transitions using function"
 desc="After dragging, click Restore to view the effect">
 </demo>
-
-## Directive Usage
-<demo src="./directive.vue"
-title="Implemented using directive"
-desc="After dragging, click Restore to view the effect">
-</demo>

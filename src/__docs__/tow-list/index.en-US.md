@@ -19,10 +19,3 @@ desc="Use components to drag and drop between multiple lists">
 title="Function Usage"
 desc="Use function to drag and drop between multiple lists">
 </demo>
-
-## Directive Usage
-
-<demo src="./directive.vue"
-title="Directive mode"
-desc="Use the directive method to drag and drop between multiple lists">
-</demo>

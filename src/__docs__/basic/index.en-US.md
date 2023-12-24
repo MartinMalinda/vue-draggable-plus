@@ -20,11 +20,3 @@ desc="Use components to complete drag and drop sorting">
 title="function usage"
 desc="Use function to complete drag and drop sorting">
 </demo>
-
-
-## Directive Usage
-
-<demo src="./directive.vue"
-title="directive use"
-desc="Use directive to complete drag and drop sorting">
-</demo>

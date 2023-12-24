@@ -30,10 +30,3 @@ title="自定义克隆"
 desc="传递 clone 属性，实现自定义克隆">
 </demo>
 
-
-## 指令使用
-
-<demo src="./directive.vue"
-title="使用指令克隆"
-desc="使用指令进行克隆元素">
-</demo>

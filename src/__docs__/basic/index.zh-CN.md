@@ -20,11 +20,3 @@ desc="使用组件完成拖拽排序">
 title="函数使用"
 desc="使用函数完成拖拽排序">
 </demo>
-
-
-## 指令使用
-
-<demo src="./directive.vue"
-title="指令使用"
-desc="使用指令完成拖拽排序">
-</demo>

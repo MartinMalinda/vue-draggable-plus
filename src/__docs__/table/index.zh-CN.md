@@ -18,10 +18,3 @@ desc="拖拽表格行进行排序">
 title="使用函数实现"
 desc="拖拽表格行进行排序">
 </demo>
-
-
-## 指令使用
-<demo src="./directive.vue"
-title="为表格绑定指令"
-desc="拖拽表格行进行排序">
-</demo>

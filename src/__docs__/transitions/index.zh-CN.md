@@ -19,9 +19,3 @@ desc="拖拽后点击还原查看效果">
 title="使用函数 组合过渡"
 desc="拖拽后点击还原查看效果">
 </demo>
-
-## 指令使用
-<demo src="./directive.vue"
-title="使用指令实现"
-desc="拖拽后点击还原查看效果">
-</demo>

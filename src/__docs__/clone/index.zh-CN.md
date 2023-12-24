@@ -29,10 +29,3 @@ desc="通过group的pull.clone属性传递，实现clone">
 title="使用函数实现克隆"
 desc="使用函数传递 options 实现克隆">
 </demo>
-
-## 指令使用
-
-<demo src="./directive.vue"
-title="使用指令实现克隆"
-desc="使用指令传递 options 实现克隆">
-</demo>
