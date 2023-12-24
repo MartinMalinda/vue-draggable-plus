@@ -1,40 +1,14 @@
 <template>
   <div class="flex">
-    <section
-      class="flex flex-col gap-2 p-4 w-300px h-300px m-auto bg-gray-500/5 rounded overflow-auto"
-      ref="el1"
-      v-model="list1"
-      animation="150"
-      ghostClass="ghost"
-      group="people"
-      @update="onUpdate"
-      @add="onAdd"
-      @remove="remove"
-    >
-      <div
-        v-for="item in list1"
-        :key="item.id"
-        class="cursor-move h-30 bg-gray-500/5 rounded p-3"
-      >
+    <section class="flex flex-col gap-2 p-4 w-300px h-300px m-auto bg-gray-500/5 rounded overflow-auto" ref="el1"
+      v-model="list1" animation="150" ghostClass="ghost" group="people" @update="onUpdate" @add="onAdd" @remove="remove">
+      <div v-for="item in list1" :key="item.id" class="cursor-move h-30 bg-gray-500/5 rounded p-3">
         {{ item.name }}
       </div>
     </section>
-    <section
-      class="flex flex-col gap-2 p-4 w-300px h-300px m-auto bg-gray-500/5 rounded overflow-auto"
-      ref="el2"
-      v-model="list2"
-      animation="150"
-      group="people"
-      ghostClass="ghost"
-      @update="onUpdate"
-      @add="onAdd"
-      @remove="remove"
-    >
-      <div
-        v-for="item in list2"
-        :key="item.id"
-        class="cursor-move h-30 bg-gray-500/5 rounded p-3"
-      >
+    <section class="flex flex-col gap-2 p-4 w-300px h-300px m-auto bg-gray-500/5 rounded overflow-auto" ref="el2"
+      v-model="list2" animation="150" group="people" ghostClass="ghost" @update="onUpdate" @add="onAdd" @remove="remove">
+      <div v-for="item in list2" :key="item.id" class="cursor-move h-30 bg-gray-500/5 rounded p-3">
         {{ item.name }}
       </div>
     </section>
@@ -75,17 +49,25 @@ const list2 = ref(
 const el1 = ref(null)
 const el2: Ref<HTMLElement | null> = ref(null)
 
-useDraggable(el1, list1, {
-  animation: 150,
-  ghostClass: 'ghost',
-  group: 'people'
-})
+useDraggable({
+  el: el1,
+  list: list1,
+  options: {
+    animation: 150,
+    ghostClass: 'ghost',
+    group: 'people'
+  }
+});
 
-useDraggable(el2, list2, {
-  animation: 150,
-  ghostClass: 'ghost',
-  group: 'people'
-})
+useDraggable({
+  el: el2,
+  list: list2,
+  options: {
+    animation: 150,
+    ghostClass: 'ghost',
+    group: 'people'
+  }
+});
 function onUpdate() {
   console.log('update')
 }

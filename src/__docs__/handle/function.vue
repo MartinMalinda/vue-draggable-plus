@@ -2,15 +2,9 @@
   <button @click="handleAdd">Add</button>
 
   <div class="flex justify-between">
-    <section
-      ref="el"
-      class="flex flex-col gap-2 p-4 w-300px bg-gray-500/5 rounded"
-    >
-      <div
-        v-for="(item, index) in list"
-        :key="item.id"
-        class="h-50px bg-gray-500/5 rounded flex items-center justify-between px-4"
-      >
+    <section ref="el" class="flex flex-col gap-2 p-4 w-300px bg-gray-500/5 rounded">
+      <div v-for="(item, index) in list" :key="item.id"
+        class="h-50px bg-gray-500/5 rounded flex items-center justify-between px-4">
         <IconSort class="handle cursor-move"></IconSort>
         <input type="text" v-model="item.name" />
         <iconClose class="cursor-pointer" @click="remove(index)"></iconClose>
@@ -43,7 +37,14 @@ const list = ref([
   }
 ])
 const el = ref()
-useDraggable(el, list, { animation: 150, handle: '.handle' })
+useDraggable({
+  el: el,
+  list: list,
+  options: {
+    animation: 150,
+    handle: '.handle'
+  }
+});
 
 function handleAdd() {
   const length = list.value.length + 1

@@ -4,7 +4,8 @@
  * @param {number} from
  * @param {number} to
  */
-import { warn } from './log'
+import { getCurrentInstance, nextTick, onMounted, onUnmounted } from 'vue'
+import { Fn } from '@/types'
 
 export function moveArrayElement<T>(array: T[], from: number, to: number): T[] {
   if (to >= 0 && to < array.length) {
@@ -75,51 +76,6 @@ export function isString(value: any): value is string {
 }
 
 /**
- * Inserts a element into the DOM at a given index.
- * @param parentElement
- * @param element
- * @param {number} index
- */
-export function insertNodeAt(
-  parentElement: Element,
-  element: Element,
-  index: number
-) {
-  const refElement = parentElement.children[index]
-  parentElement.insertBefore(element, refElement)
-}
-
-/**
- * Removes a node from the DOM.
- * @param {Node} node
- */
-export function removeNode(node: Node) {
-  if (node.parentNode) node.parentNode.removeChild(node)
-}
-
-/**
- * Get an element by selector.
- * @param {string} selector
- * @param parentElement
- * @returns {Element}
- */
-export function getElementBySelector(
-  selector: string,
-  parentElement: Document | Element = document
-) {
-  let el: HTMLElement | null = null
-  if (typeof parentElement?.querySelector === 'function') {
-    el = parentElement?.querySelector?.(selector)
-  } else {
-    el = document.querySelector(selector)
-  }
-  if (!el) {
-    warn(`Element not found: ${selector}`)
-  }
-  return el as HTMLElement
-}
-
-/**
  * It takes a function and returns a function that executes the original function and then executes the second function.
  * @param {Function} fn - The function to be executed
  * @param {Function} afterFn - The function to be executed after the original function.
@@ -173,4 +129,23 @@ export function forEachObject<T extends Record<string, any>>(
   Object.keys(obj).forEach(key => {
     fn(key, obj[key])
   })
+}
+
+/**
+ * copied from vueuse: https://github.com/vueuse/vueuse/blob/main/packages/shared/tryOnUnmounted/index.ts
+ * Call onUnmounted() if it's inside a component lifecycle, if not, do nothing
+ * @param fn
+ */
+export function tryOnUnmounted(fn: Fn) {
+  if (getCurrentInstance()) onUnmounted(fn)
+}
+
+/**
+ * copied from vueuse:https://github.com/vueuse/vueuse/blob/main/packages/shared/tryOnMounted/index.ts
+ * Call onMounted() if it's inside a component lifecycle, if not, just call the function
+ * @param fn
+ */
+export function tryOnMounted(fn: Fn) {
+  if (getCurrentInstance()) onMounted(fn)
+  else nextTick(fn)
 }

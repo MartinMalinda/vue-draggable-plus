@@ -30,9 +30,13 @@ const list = computed({
 })
 
 const el = ref()
-useDraggable(el, list, {
-  group: 'g1'
-})
+useDraggable({
+  el: el,
+  list: list,
+  options: {
+    group: 'g1'
+  }
+});
 </script>
 <style scoped>
 .drag-area {

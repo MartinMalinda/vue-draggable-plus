@@ -114,7 +114,11 @@ export const VueDraggable = defineComponent<IProps>({
 
     const target = ref()
     const data = reactive(
-      useDraggable((props.target || target) as string, list, options)
+      useDraggable({
+        el: (props.target || target) as string,
+        list: list,
+        options: options
+      })
     )
 
     expose(data)

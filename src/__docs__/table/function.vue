@@ -39,5 +39,8 @@ const list = ref([
 ])
 const el = ref()
 
-useDraggable(el, list)
+useDraggable({
+  el: el,
+  list: list
+});
 </script>

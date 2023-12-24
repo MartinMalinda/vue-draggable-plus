@@ -51,5 +51,8 @@ const list = ref([
 ])
 
 const el = ref()
-useDraggable(el, headers)
+useDraggable({
+  el: el,
+  list: headers,
+});
 </script>

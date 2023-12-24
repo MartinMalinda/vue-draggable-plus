@@ -37,5 +37,8 @@ const list = ref([
   }
 ])
 
-useDraggable('#my-container .el-table', list)
+useDraggable({
+  el: '#my-container .el-table',
+  list: list
+});
 </script>

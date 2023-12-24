@@ -1,50 +1,20 @@
-import Sortable, { type Options, type SortableEvent } from 'sortablejs'
-import {
-  getCurrentInstance,
-  onMounted,
-  onUnmounted,
-  unref
-} from 'vue-demi'
-import type { Ref } from 'vue-demi'
-import type { Fn, RefOrElement, RefOrValue } from './types'
+// Importing from 'sortablejs'
+import Sortable, { type Options, type SortableEvent } from 'sortablejs';
 
-import { error } from './utils/log'
+// Importing Vue composition functions and types
+import { unref, watch } from 'vue-demi';
+import type { Ref } from 'vue-demi';
 
-import {
-  forEachObject,
-  getElementBySelector,
-  insertElement,
-  isHTMLElement,
-  isString,
-  isUndefined,
-  mergeOptionsEvents,
-  moveArrayElement,
-  removeElement,
-} from './utils'
-import { nextTick, watch } from 'vue'
+// Importing custom types
+import type { RefOrElement, RefOrValue } from './types';
+
+// Importing utilities
+import { forEachObject, insertElement, isHTMLElement, isString, isUndefined, mergeOptionsEvents, moveArrayElement, removeElement, tryOnMounted, tryOnUnmounted } from './utils';
+
 
 function defaultClone<T>(element: T): T {
   if (element === undefined || element === null) return element
   return JSON.parse(JSON.stringify(element))
-}
-
-/**
- * copied from vueuse: https://github.com/vueuse/vueuse/blob/main/packages/shared/tryOnUnmounted/index.ts
- * Call onUnmounted() if it's inside a component lifecycle, if not, do nothing
- * @param fn
- */
-function tryOnUnmounted(fn: Fn) {
-  if (getCurrentInstance()) onUnmounted(fn)
-}
-
-/**
- * copied from vueuse:https://github.com/vueuse/vueuse/blob/main/packages/shared/tryOnMounted/index.ts
- * Call onMounted() if it's inside a component lifecycle, if not, just call the function
- * @param fn
- */
-function tryOnMounted(fn: Fn) {
-  if (getCurrentInstance()) onMounted(fn)
-  else nextTick(fn)
 }
 
 const CLONE_ELEMENT_KEY = Symbol('cloneElement')
@@ -71,56 +41,30 @@ export interface UseDraggableOptions<T> extends Options {
   customUpdate?: (event: SortableEvent) => void
 }
 
-/**
- * A custom compositionApi utils that allows you to drag and drop elements in lists.
- * @param el
- * @param {Array} list - The list to be dragged
- * @param {Object} options - The options of the sortable
- * @returns {Object} - The return of the sortable
- */
-export function useDraggable<T>(
-  el: RefOrElement,
-  list?: Ref<T[] | undefined>,
-  options?: RefOrValue<UseDraggableOptions<T>>
-): UseDraggableReturn
-export function useDraggable<T>(
-  el: null | undefined,
-  list?: Ref<T[] | undefined>,
-  options?: RefOrValue<UseDraggableOptions<T>>
-): UseDraggableReturn
-export function useDraggable<T>(
-  el: Ref<HTMLElement | null | undefined>,
-  options?: RefOrValue<UseDraggableOptions<T>>
-): UseDraggableReturn
-export function useDraggable<T>(
-  el: null | undefined,
-  options?: RefOrValue<UseDraggableOptions<T>>
-): UseDraggableReturn
+export interface UseDraggableParams<T> {
+  el: RefOrElement;
+  list: Ref<T[]>;
+  options?: RefOrValue<UseDraggableOptions<T>>;
+}
 
 /**
- * A custom compositionApi utils that allows you to drag and drop elements in lists.
- * @param {Ref<HTMLElement | null | undefined> | string} el
- * @param {Ref<T[]>} list
- * @param {RefOrValue<UseDraggableOptions<T>>} options
- * @returns {UseSortableReturn}
+ * A custom Composition API utility that allows you to drag and drop elements in lists.
+ * @param {UseDraggableParams<T>} params - The parameters object containing:
+ *   @param {Ref<HTMLElement | null | undefined> | string} el - The element or selector string for the draggable container.
+ *   @param {Ref<T[]> | undefined} list - Optional. A ref to the array of items to be draggable.
+ *   @param {RefOrValue<UseDraggableOptions<T>> | undefined} options - Optional. The configuration options for draggable behavior.
+ * @returns {UseDraggableReturn} - An object containing methods and properties to control and interact with the draggable feature.
  */
-export function useDraggable<T>(...args: any[]): UseDraggableReturn {
-  const vm = getCurrentInstance()?.proxy
-
-  const el = args[0]
-  let [, list, options] = args
-
-  if (!Array.isArray(unref(list))) {
-    options = list
-    list = null
-  }
-
-  let instance: Sortable | null = null
+export function useDraggable<T>({ el, list, options }: UseDraggableParams<T>): UseDraggableReturn {
+  // Set default values for options
+  const optionsUnref = unref(options) || {};
   const {
     immediate = true,
     clone = defaultClone,
     customUpdate
-  } = unref(options) ?? {}
+  } = optionsUnref;
+
+  let instance: Sortable | null = null
 
   /**
    * Element dragging started
@@ -189,17 +133,20 @@ export function useDraggable<T>(...args: any[]): UseDraggableReturn {
   }
 
   function getTarget(target?: HTMLElement) {
-    const element = unref(el) as any
-    if (!target) {
-      target = isString(element)
-        ? getElementBySelector(element, vm?.$el)
-        : element
-    }
-    // @ts-ignore
-    if (target && !isHTMLElement(target)) target = target.$el
+    const element = unref(el) as any;
+    let finalTarget = target;
 
-    if (!target) error('Root element not found')
-    return target
+    if (!finalTarget) {
+      finalTarget = isString(element)
+        ? document.querySelector(element)
+        : element;
+    }
+
+    // @ts-ignore
+    if (finalTarget && !isHTMLElement(finalTarget)) finalTarget = finalTarget.$el;
+
+    if (!finalTarget) throw new Error('Root element not found');
+    return finalTarget;
   }
 
   function mergeOptions() {

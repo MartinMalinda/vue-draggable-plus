@@ -1,18 +1,10 @@
 <template>
   <button @click="sort">还原</button>
   <div class="flex justify-between">
-    <TransitionGroup
-      class="flex flex-col gap-2 p-4 w-300px bg-gray-500/5 rounded"
-      ref="el"
-      type="transition"
-      tag="ul"
-      :name="!drag ? 'fade' : null"
-    >
-      <li
-        v-for="item in list"
-        :key="item.id"
-        class="cursor-move h-50px bg-gray-500/5 rounded flex items-center justify-between px-2"
-      >
+    <TransitionGroup class="flex flex-col gap-2 p-4 w-300px bg-gray-500/5 rounded" ref="el" type="transition" tag="ul"
+      :name="!drag ? 'fade' : null">
+      <li v-for="item in list" :key="item.id"
+        class="cursor-move h-50px bg-gray-500/5 rounded flex items-center justify-between px-2">
         {{ item.name }}
       </li>
     </TransitionGroup>
@@ -45,16 +37,18 @@ const list = ref([
 ])
 const el = ref()
 
-useDraggable(el, list, {
-  animation: 150,
-  onStart() {
-    drag.value = true
-  },
-  onEnd() {
-    console.log('onEnd')
-    nextTick(() => {
-      drag.value = false
-    })
+useDraggable({
+  el, list, options: {
+    animation: 150,
+    onStart() {
+      drag.value = true
+    },
+    onEnd() {
+      console.log('onEnd')
+      nextTick(() => {
+        drag.value = false
+      })
+    }
   }
 })
 

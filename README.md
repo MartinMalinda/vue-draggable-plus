@@ -108,15 +108,19 @@ const list = ref([
   }
 ])
 // The return value is an object, which contains some methods, such as start, destroy, pause, etc.
-const draggable = useDraggable(el, list, {
-  animation: 150,
-  onStart() {
-    console.log('start')
-  },
-  onUpdate() {
-    console.log('update')
+const draggable = useDraggable({
+  el,
+  list,
+  options: {
+    animation: 150,
+    onStart() {
+      console.log('start');
+    },
+    onUpdate() {
+      console.log('update');
+    }
   }
-})
+});
 </script>
 ```
 
