@@ -1,5 +1,5 @@
 {
-  "name": "vue-draggable-plus",
+  "name": "vue-draggable-plus-plus",
   "version": "0.3.2",
   "author": {
     "name": "yangpanteng",
@@ -9,7 +9,7 @@
   "homepage": "https://alfred-skyblue.github.io/vue-draggable-plus/en/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Alfred-Skyblue/vue-draggable-plus"
+    "url": "https://github.com/MartinMalinda/vue-draggable-plus"
   },
   "type": "module",
   "types": "./dist/index.d.ts",

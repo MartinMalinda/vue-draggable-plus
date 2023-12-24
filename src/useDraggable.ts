@@ -1,5 +1,6 @@
 // Importing from 'sortablejs'
-import Sortable, { type Options, type SortableEvent } from 'sortablejs';
+import { type Options, type SortableEvent } from 'sortablejs';
+import type Sortable from 'sortablejs';
 
 // Importing Vue composition functions and types
 import { unref, watch } from 'vue-demi';
@@ -158,7 +159,10 @@ export function useDraggable<T>({ el, list, options }: UseDraggableParams<T>): U
     ) as Options
   }
 
-  const start = (target?: HTMLElement) => {
+  const sortablePromise = import('sortablejs');
+
+  const start = async (target?: HTMLElement) => {
+    const Sortable = (await sortablePromise).default;
     target = getTarget(target)
     if (instance) methods.destroy()
 
